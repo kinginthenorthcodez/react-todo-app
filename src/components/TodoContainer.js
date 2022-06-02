@@ -1,0 +1,46 @@
+import React from 'react';
+import TodosList from './TodosList';
+import Header from './Header';
+
+class TodoContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      todos: [
+        {
+          id: 1,
+          title: 'Setup development environment',
+          completed: true,
+        },
+        {
+          id: 2,
+          title: 'Develop website and add content',
+          completed: false,
+        },
+        {
+          id: 3,
+          title: 'Deploy to live server',
+          completed: false,
+        },
+      ],
+    };
+  }
+
+  render() {
+    const { todos } = this.state;
+    // console.log(todos);
+    // const item = todos.map((todo) => (
+    //   <li key={todo.id}>
+    //     {todo.title}
+    //   </li>
+    // ));
+    return (
+      <div>
+        <Header />
+        <TodosList todos={todos} />
+      </div>
+    );
+  }
+}
+
+export default TodoContainer;

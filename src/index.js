@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TodoContainer from './components/TodoContainer';
 
-const element = <h1>React ToDo App</h1>;
-ReactDOM.render(element, document.getElementById('root'));
+// const root = ReactDOM.createRoot(document.getElementById('root'));
+// root.render(<TodoContainer />);
+ReactDOM.render(<TodoContainer />, document.getElementById('root'));
