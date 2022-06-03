@@ -10,24 +10,35 @@ class TodoContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      todos: [
-        {
-          id: uuidv4(),
-          title: 'Setup development environment',
-          completed: true,
-        },
-        {
-          id: uuidv4(),
-          title: 'Develop website and add content',
-          completed: false,
-        },
-        {
-          id: uuidv4(),
-          title: 'Deploy to live server',
-          completed: false,
-        },
-      ],
+      todos: [],
     };
+  }
+
+  // componentDidMount() {
+  //   fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+  //     .then((response) => response.json())
+  //     .then((data) => this.setState({ todos: data }));
+  // }
+  componentDidMount() {
+    const temp = localStorage.getItem('todos');
+    const loadedTodos = JSON.parse(temp);
+    if (loadedTodos) {
+      this.setState({
+        todos: loadedTodos,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { todos } = this.state;
+    if (prevState.todos !== todos) {
+      const temp = JSON.stringify(todos);
+      localStorage.setItem('todos', temp);
+    }
+  }
+
+  componentWillUnmount() {
+    console.log('Cleaning up...');
   }
 
    handleChange = (id) => {
