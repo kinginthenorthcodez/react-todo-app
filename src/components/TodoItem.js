@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styles from './TodoItem.module.css';
 
 class TodoItem extends React.Component {
   constructor(props) {
@@ -8,8 +9,27 @@ class TodoItem extends React.Component {
   }
 
   render() {
-    const { todo } = this.props;
-    return (<li id={todo.id}>{todo.title}</li>);
+    const { todo, handleChangeProps, deleteTodoProps } = this.props;
+    const completedStyle = {
+      fontStyle: 'italic',
+      color: '#595959',
+      opacity: 0.4,
+      textDecoration: 'line-through',
+    };
+    return (
+      <li id={todo.id} className={styles.item}>
+        <input
+          type="checkbox"
+          className={styles.checkbox}
+          checked={todo.completed}
+          onChange={() => handleChangeProps(todo.id)}
+        />
+        <button type="button" onClick={() => deleteTodoProps(todo.id)}>Delete</button>
+        <span style={todo.completed ? completedStyle : null}>
+          {todo.title}
+        </span>
+      </li>
+    );
   }
 }
 
@@ -20,5 +40,7 @@ TodoItem.propTypes = {
     title: PropTypes.string,
     completed: PropTypes.bool,
   }),
+  handleChangeProps: PropTypes.func.isRequired,
+  deleteTodoProps: PropTypes.func.isRequired,
 };
 export default TodoItem;
